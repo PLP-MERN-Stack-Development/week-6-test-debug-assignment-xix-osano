@@ -1,35 +1,78 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState } from 'react';
+import './App.css';
+import ErrorBoundary from './components/ErrorBoundary';
+import BugForm from './components/BugForm';
+import BugList from './components/BugList';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [currentView, setCurrentView] = useState('list');
+  const [editingBugId, setEditingBugId] = useState(null);
+  const [refreshTrigger, setRefreshTrigger] = useState(0);
+
+  const handleCreateNew = () => {
+    setEditingBugId(null);
+    setCurrentView('form');
+  };
+
+  const handleEdit = (bugId) => {
+    setEditingBugId(bugId);
+    setCurrentView('form');
+  };
+
+  const handleFormSubmit = () => {
+    setCurrentView('list');
+    setEditingBugId(null);
+    setRefreshTrigger(prev => prev + 1);
+  };
+
+  const handleFormCancel = () => {
+    setCurrentView('list');
+    setEditingBugId(null);
+  };
+
+  const handleDelete = () => {
+    setRefreshTrigger(prev => prev + 1);
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <ErrorBoundary>
+      <div className="App">
+        <header className="App-header">
+          <h1>Bug Tracker</h1>
+          <nav>
+            <button 
+              onClick={() => setCurrentView('list')}
+              className={currentView === 'list' ? 'active' : ''}
+            >
+              Bug List
+            </button>
+            <button 
+              onClick={handleCreateNew}
+              className={currentView === 'form' ? 'active' : ''}
+            >
+              Report Bug
+            </button>
+          </nav>
+        </header>
+
+        <main className="App-main">
+          {currentView === 'list' ? (
+            <BugList 
+              onEdit={handleEdit}
+              onDelete={handleDelete}
+              refreshTrigger={refreshTrigger}
+            />
+          ) : (
+            <BugForm 
+              bugId={editingBugId}
+              onSubmit={handleFormSubmit}
+              onCancel={handleFormCancel}
+            />
+          )}
+        </main>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    </ErrorBoundary>
+  );
 }
 
-export default App
+export default App;
