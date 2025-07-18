@@ -1,17 +1,3 @@
-[![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-2e0aaae1b6195c2367325f4f02e2d04e9abb55f0b24a779b69b11b9e10269abc.svg)](https://classroom.github.com/online_ide?assignment_repo_id=19955236&assignment_repo_type=AssignmentRepo)
-# Testing and Debugging MERN Applications
-
-This assignment focuses on implementing comprehensive testing strategies for a MERN stack application, including unit testing, integration testing, and end-to-end testing, along with debugging techniques.
-
-## Assignment Overview
-
-You will:
-1. Set up testing environments for both client and server
-2. Write unit tests for React components and server functions
-3. Implement integration tests for API endpoints
-4. Create end-to-end tests for critical user flows
-5. Apply debugging techniques for common MERN stack issues
-
 ## Project Structure
 
 ```
@@ -45,14 +31,6 @@ mern-testing/
 4. Explore the starter code and existing tests
 5. Complete the tasks outlined in the assignment
 
-## Files Included
-
-- `Week6-Assignment.md`: Detailed assignment instructions
-- Starter code for a MERN application with basic test setup:
-  - Sample React components with test files
-  - Express routes with test files
-  - Jest and testing library configurations
-  - Example tests for reference
 
 ## Requirements
 
@@ -69,15 +47,31 @@ mern-testing/
 - Cypress/Playwright: End-to-end testing framework
 - MongoDB Memory Server: In-memory MongoDB for testing
 
-## Submission
-
-Your work will be automatically submitted when you push to your GitHub Classroom repository. Make sure to:
-
-1. Complete all required tests (unit, integration, and end-to-end)
-2. Achieve at least 70% code coverage for unit tests
-3. Document your testing strategy in the README.md
-4. Include screenshots of your test coverage reports
-5. Demonstrate debugging techniques in your code
+## 🛠️ Setup
+1. Clone the starter code repository
+2. Install dependencies for both client and server:
+   ```
+   # In the root directory
+   npm run install-all
+   ```
+3. Set up the test database:
+   ```
+   # In the server directory
+   npm run setup-test-db
+   ```
+4. Run the tests:
+   ```
+   # Run all tests
+   npm test
+   
+   # Run only unit tests
+   npm run test:unit
+   
+   # Run only integration tests
+   npm run test:integration
+   
+   # Run only end-to-end tests
+   npm run test:e2e
 
 ## Resources
 
